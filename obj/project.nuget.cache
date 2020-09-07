@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xi8oKvM310lrPQWSvfb3yztBLvCgLoaJAPxAb8aw94JNf7mji5OTm25y7EH5aT5Tn93KKdJHI56bZwqilyePfQ==",
+  "dgSpecHash": "gvdg0GhFaUTlhPd4zxdK/p5QG/GzbxAraHDO09Xvv88rkhmhfPtTtOom3kJ1Q/bEDkiyB8nYLt4jI/DkJrF6IA==",
   "success": true,
   "projectFilePath": "/Users/ali/Desktop/earthlink/AutoCrud/AutoCrud.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,7 @@
     "/Users/ali/.nuget/packages/microsoft.entityframeworkcore/3.1.7/microsoft.entityframeworkcore.3.1.7.nupkg.sha512",
     "/Users/ali/.nuget/packages/microsoft.entityframeworkcore.abstractions/3.1.7/microsoft.entityframeworkcore.abstractions.3.1.7.nupkg.sha512",
     "/Users/ali/.nuget/packages/microsoft.entityframeworkcore.analyzers/3.1.7/microsoft.entityframeworkcore.analyzers.3.1.7.nupkg.sha512",
+    "/Users/ali/.nuget/packages/microsoft.entityframeworkcore.inmemory/3.1.7/microsoft.entityframeworkcore.inmemory.3.1.7.nupkg.sha512",
     "/Users/ali/.nuget/packages/microsoft.extensions.caching.abstractions/3.1.7/microsoft.extensions.caching.abstractions.3.1.7.nupkg.sha512",
     "/Users/ali/.nuget/packages/microsoft.extensions.caching.memory/3.1.7/microsoft.extensions.caching.memory.3.1.7.nupkg.sha512",
     "/Users/ali/.nuget/packages/microsoft.extensions.configuration/3.1.7/microsoft.extensions.configuration.3.1.7.nupkg.sha512",

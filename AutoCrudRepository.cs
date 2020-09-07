@@ -117,6 +117,6 @@ namespace AutoCrud
         }
 
         protected abstract DbSet<Entity> GetDbSet();
-        protected abstract PrimaryKey GetPrimaryKey(Entity model);
+        protected abstract PrimaryKey GetPrimaryKey(Entity entity);
     }
 }
