@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoCrud.Test.Dummy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,13 +8,12 @@ using Xunit;
 
 namespace AutoCrud.Test
 {
-    public class SimpleAutoCrudControllerTest
+    public class AutoCrudControllerTest
     {
-        public SimpleAutoCrudControllerTest()
+        public AutoCrudControllerTest()
         {
             _logger = new Mock<ILogger>();
-            _dbContext =
-                TestUtils.MakeInMemoryDbContext<DummyDbContext>(nameof(SimpleAutoCrudControllerTest));
+            _dbContext = TestUtils.MakeInMemoryDbContext<DummyDbContext>(nameof(AutoCrudControllerTest));
             _repository = new DummyRepository(_dbContext);
             SetupData();
         }
@@ -42,63 +40,63 @@ namespace AutoCrud.Test
         }
 
         [Fact]
-        public async Task ShouldCreateModel()
+        public void ShouldCreateEntity()
         {
-            var model = new DummyEntity {Name = "Created Model"};
+            var entity = new DummyEntity {Name = "Created Entity"};
             var controller = MakeControllerObject();
-            var result = await controller.Create(model);
+            var result = controller.Create(entity);
             Assert.IsAssignableFrom<CreatedResult>(result);
-            var returnedModel = (DummyEntity) ((CreatedResult) result).Value;
-            Assert.Equal(model.Name, returnedModel.Name);
+            var returnedEntity = (DummyEntity) ((CreatedResult) result).Value;
+            Assert.Equal(entity.Name, returnedEntity.Name);
             Assert.Equal("created url", ((CreatedResult) result).Location);
-            TestUtils.VerifyLogMessage(_logger, "Creating new model");
+            TestUtils.VerifyLogMessage(_logger, "Creating new entity");
         }
 
 
         [Fact]
-        public async Task ShouldDeleteModel()
+        public void ShouldDeleteEntity()
         {
             var controller = MakeControllerObject();
-            var result = await controller.Delete(1);
+            var result = controller.Delete(1);
             Assert.IsAssignableFrom<NoContentResult>(result);
-            TestUtils.VerifyLogMessage(_logger, "Deleting model with key : 1");
+            TestUtils.VerifyLogMessage(_logger, "Deleting entity with key : 1");
         }
 
         [Fact]
-        public async Task ShouldFindModel()
+        public void ShouldFindEntity()
         {
             var controller = MakeControllerObject();
-            var result = await controller.FindModel(1);
+            var result = controller.Find(1);
             Assert.IsAssignableFrom<OkObjectResult>(result);
-            var returnedModel = (DummyEntity) ((OkObjectResult) result).Value;
-            Assert.Equal("First", returnedModel.Name);
-            TestUtils.VerifyLogMessage(_logger, "Fetching model with key : 1");
+            var returnedEntity = (DummyEntity) ((OkObjectResult) result).Value;
+            Assert.Equal("First", returnedEntity.Name);
+            TestUtils.VerifyLogMessage(_logger, "Fetching entity with key : 1");
         }
 
         [Fact]
-        public async Task ShouldGetModels()
+        public void ShouldGetEntities()
         {
             var controller = MakeControllerObject();
-            var result = await controller.GetModels();
+            var result = controller.GetPage();
             Assert.IsAssignableFrom<OkObjectResult>(result);
-            var returnedModels = (List<DummyEntity>) ((OkObjectResult) result).Value;
-            Assert.Equal(2, returnedModels.Count);
-            TestUtils.VerifyLogMessage(_logger, "Fetching models on page : 0");
+            var returnedEntities = (List<DummyEntity>) ((OkObjectResult) result).Value;
+            Assert.Equal(2, returnedEntities.Count);
+            TestUtils.VerifyLogMessage(_logger, "Fetching entities on page : 0");
         }
 
 
         [Fact]
-        public async Task ShouldNotLogWhenLoggingNotEnabled()
+        public void ShouldNotLogWhenLoggingNotEnabled()
         {
             var controller = MakeControllerObject();
             controller.EnableLogging = false;
-            var result = await controller.Delete(1);
+            var result = controller.Delete(1);
             Assert.IsAssignableFrom<NoContentResult>(result);
             _logger.Verify(l => l.Log(
                     LogLevel.Information,
                     It.IsAny<EventId>(),
                     It.Is<It.IsAnyType>((o, t) =>
-                        string.Equals("Deleting model with key : 1", o.ToString(),
+                        string.Equals("Deleting entity with key : 1", o.ToString(),
                             StringComparison.InvariantCultureIgnoreCase)),
                     It.IsAny<Exception>(),
                     (Func<It.IsAnyType, Exception, string>) It.IsAny<object>()),
@@ -107,17 +105,17 @@ namespace AutoCrud.Test
         }
 
         [Fact]
-        public async Task ShouldUpdateModel()
+        public void ShouldUpdateEntity()
         {
             //setting Id = 2, but in url we use 1, this could happen by user to edit the value of id, but it should reset the value to 1
-            var model = new DummyEntity {Name = "EDITED MODEL", Id = 2};
+            var entity = new DummyEntity {Name = "EDITED ENTITY", Id = 2};
             var controller = MakeControllerObject();
-            var result = await controller.Update(1, model);
+            var result = controller.Update(1, entity);
             Assert.IsAssignableFrom<OkObjectResult>(result);
-            var returnedModel = (DummyEntity) ((OkObjectResult) result).Value;
-            Assert.Equal("EDITED MODEL", returnedModel.Name);
-            Assert.Equal(1, returnedModel.Id);
-            TestUtils.VerifyLogMessage(_logger, "Updating model with key : 1");
+            var returnedEntity = (DummyEntity) ((OkObjectResult) result).Value;
+            Assert.Equal("EDITED ENTITY_UPDATED", returnedEntity.Name);
+            Assert.Equal(1, returnedEntity.Id);
+            TestUtils.VerifyLogMessage(_logger, "Updating entity with key : 1");
         }
     }
 }
