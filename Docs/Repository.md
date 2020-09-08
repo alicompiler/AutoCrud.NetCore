@@ -34,7 +34,7 @@ take a look on the `IAutoCrudRepository` interface
  
  to create new **auto-crud** repository you need to extends the abstract class `AutoCrudRepository`.
  
- first you need to tell the class what the type of the entity and the type of the primary key.
+ first you need to tell the class what is the type of the entity and the type of the primary key.
  
  
     //example

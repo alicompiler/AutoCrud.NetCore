@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -57,19 +56,16 @@ namespace AutoCrud
             return NoContent();
         }
 
-        protected virtual Task PostProcessCreate(Entity entity)
+        protected void PostProcessCreate(Entity entity)
         {
-            return Task.CompletedTask;
         }
 
-        protected virtual Task PostProcessUpdate(Entity entity)
+        protected void PostProcessUpdate(Entity entity)
         {
-            return Task.CompletedTask;
         }
 
-        protected virtual Task PostProcessDelete(Entity entity)
+        protected void PostProcessDelete(Entity entity)
         {
-            return Task.CompletedTask;
         }
     }
 }
