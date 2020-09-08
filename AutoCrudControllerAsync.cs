@@ -4,56 +4,56 @@ using Microsoft.Extensions.Logging;
 
 namespace AutoCrud
 {
-    public abstract class AutoCrudController<Entity, PrimaryKey> : AutoCrudControllerBase<Entity, PrimaryKey>,
-        IAutoCrudController<Entity, PrimaryKey> where Entity : class
+    public abstract class AutoCrudControllerAsync<Entity, PrimaryKey> : AutoCrudControllerBase<Entity, PrimaryKey>,
+        IAutoCrudControllerAsync<Entity, PrimaryKey> where Entity : class
     {
-        protected AutoCrudController(IAutoCrudRepository<Entity, PrimaryKey> repository, ILogger logger) : base(
+        protected AutoCrudControllerAsync(IAutoCrudRepository<Entity, PrimaryKey> repository, ILogger logger) : base(
             repository, logger)
         {
         }
 
 
         [HttpGet]
-        public virtual IActionResult GetPage([FromQuery] int page = 0)
+        public virtual async Task<IActionResult> GetPage([FromQuery] int page = 0)
         {
             Log($"Fetching {GetEntityNameInPluralForLogging()} on page : {page}");
-            var entities = _repository.GetPage(page, GetPageSize());
+            var entities = await _repository.GetPageAsync(page, GetPageSize());
             return Ok(entities);
         }
 
         [HttpGet("{key}")]
-        public IActionResult Find([FromRoute] PrimaryKey key)
+        public async Task<IActionResult> Find([FromRoute] PrimaryKey key)
         {
             Log($"Fetching {GetEntityNameInSingularForLogging()} with key : {key}");
-            var entity = _repository.Find(key);
+            var entity = await _repository.FindAsync(key);
             return Ok(entity);
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Entity entity)
+        public async Task<IActionResult> Create([FromBody] Entity entity)
         {
             Log($"Creating new {GetEntityNameInSingularForLogging()}");
-            var createdEntity = _repository.Create(entity);
-            PostProcessCreate(entity);
+            var createdEntity = await _repository.CreateAsync(entity);
+            await PostProcessCreate(entity);
             return Created(GetCreatedEntityUri(createdEntity), createdEntity);
         }
 
         [HttpPut("{key}")]
-        public IActionResult Update([FromRoute] PrimaryKey key, [FromBody] Entity entity)
+        public async Task<IActionResult> Update([FromRoute] PrimaryKey key, [FromBody] Entity entity)
         {
             Log($"Updating {GetEntityNameInSingularForLogging()} with key : {key}");
             SetPrimaryKeyValueToEntity(entity, key);
-            var editedEntity = _repository.Update(entity);
-            PostProcessUpdate(entity);
+            var editedEntity = await _repository.UpdateAsync(entity);
+            await PostProcessUpdate(entity);
             return Ok(editedEntity);
         }
 
         [HttpDelete("{key}")]
-        public IActionResult Delete([FromRoute] PrimaryKey key)
+        public async Task<IActionResult> Delete([FromRoute] PrimaryKey key)
         {
             Log($"Deleting {GetEntityNameInSingularForLogging()} with key : {key}");
-            var deletedEntity = _repository.Delete(key);
-            PostProcessDelete(deletedEntity);
+            var deletedEntity = await _repository.DeleteAsync(key);
+            await PostProcessDelete(deletedEntity);
             return NoContent();
         }
 
