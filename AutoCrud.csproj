@@ -2,7 +2,10 @@
 
     <PropertyGroup>
 
+        <IsPackable>true</IsPackable>
+
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <GenerateProgramFile>false</GenerateProgramFile>
 
         <PackageId>AutoCrud</PackageId>
         <Version>1.0.0</Version>
@@ -10,8 +13,6 @@
         <Company>Ali Faris</Company>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/alicompiler/AutoCrud.NetCore</RepositoryUrl>
-
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     </PropertyGroup>
 
@@ -27,7 +28,7 @@
         </PackageReference>
 
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>
-
     </ItemGroup>
+
 
 </Project>
