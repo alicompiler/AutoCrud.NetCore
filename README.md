@@ -1,7 +1,7 @@
 # AutoCrud
 
 this simple library provide you with ready to go `Repository` and `Controller` without the need to write code,
-so that can focus on what's important rather than the small tedious details.
+so that you can focus on what's important rather than the small tedious details.
 
 
 ## Installation
