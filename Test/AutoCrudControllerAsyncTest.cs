@@ -14,7 +14,7 @@ namespace AutoCrud.Test
         public AutoCrudControllerAsyncTest()
         {
             _logger = new Mock<ILogger>();
-            _dbContext = TestUtils.MakeInMemoryDbContext<DummyDbContext>(nameof(AutoCrudControllerTest));
+            _dbContext = TestUtils.MakeInMemoryDbContext<DummyDbContext>(nameof(AutoCrudControllerAsyncTest));
             _repository = new DummyRepository(_dbContext);
             SetupData();
         }

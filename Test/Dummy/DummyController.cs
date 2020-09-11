@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AutoCrud.Test.Dummy
 {
-    public class DummyController : AutoCrudController<DummyEntity, int>
+    internal class DummyController : AutoCrudController<DummyEntity, int>
     {
         public DummyController(AutoCrudRepository<DummyEntity, int> repository, ILogger logger) :
             base(repository, logger)
@@ -26,7 +26,7 @@ namespace AutoCrud.Test.Dummy
     }
 
 
-    public class DummyControllerAsync : AutoCrudControllerAsync<DummyEntity, int>
+    internal class DummyControllerAsync : AutoCrudControllerAsync<DummyEntity, int>
     {
         public DummyControllerAsync(AutoCrudRepository<DummyEntity, int> repository, ILogger logger) :
             base(repository, logger)

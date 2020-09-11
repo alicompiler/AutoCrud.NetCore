@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AutoCrud.Test.Dummy
 {
-    public class DummyRepository : AutoCrudRepository<DummyEntity, int>
+    internal class DummyRepository : AutoCrudRepository<DummyEntity, int>
     {
         private readonly DummyDbContext _dbContext;
 

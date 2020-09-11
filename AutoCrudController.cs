@@ -15,6 +15,7 @@ namespace AutoCrud
         [HttpGet]
         public virtual IActionResult GetPage([FromQuery] int page = 0)
         {
+            BeforeGetPage();
             Log($"Fetching {GetEntityNameInPluralForLogging()} on page : {page}");
             var entities = _repository.GetPage(page, GetPageSize());
             return Ok(entities);
@@ -23,6 +24,7 @@ namespace AutoCrud
         [HttpGet("{key}")]
         public IActionResult Find([FromRoute] PrimaryKey key)
         {
+            BeforeFindEntity();
             Log($"Fetching {GetEntityNameInSingularForLogging()} with key : {key}");
             var entity = _repository.Find(key);
             return Ok(entity);
@@ -31,6 +33,7 @@ namespace AutoCrud
         [HttpPost]
         public IActionResult Create([FromBody] Entity entity)
         {
+            BeforeCreate();
             Log($"Creating new {GetEntityNameInSingularForLogging()}");
             var createdEntity = _repository.Create(entity);
             PostProcessCreate(entity);
@@ -40,6 +43,7 @@ namespace AutoCrud
         [HttpPut("{key}")]
         public IActionResult Update([FromRoute] PrimaryKey key, [FromBody] Entity entity)
         {
+            BeforeUpdate();
             Log($"Updating {GetEntityNameInSingularForLogging()} with key : {key}");
             SetPrimaryKeyValueToEntity(entity, key);
             var editedEntity = _repository.Update(entity);
@@ -50,6 +54,7 @@ namespace AutoCrud
         [HttpDelete("{key}")]
         public IActionResult Delete([FromRoute] PrimaryKey key)
         {
+            BeforeDelete();
             Log($"Deleting {GetEntityNameInSingularForLogging()} with key : {key}");
             var deletedEntity = _repository.Delete(key);
             PostProcessDelete(deletedEntity);

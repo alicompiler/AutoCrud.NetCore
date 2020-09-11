@@ -6,7 +6,7 @@ using Moq;
 
 namespace AutoCrud.Test
 {
-    public static class TestUtils
+    internal static class TestUtils
     {
         public static T MakeInMemoryDbContext<T>(string dbName) where T : DbContext
         {

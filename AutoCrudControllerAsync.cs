@@ -16,6 +16,7 @@ namespace AutoCrud
         [HttpGet]
         public virtual async Task<IActionResult> GetPage([FromQuery] int page = 0)
         {
+            BeforeGetPage();
             Log($"Fetching {GetEntityNameInPluralForLogging()} on page : {page}");
             var entities = await _repository.GetPageAsync(page, GetPageSize());
             return Ok(entities);
@@ -24,6 +25,7 @@ namespace AutoCrud
         [HttpGet("{key}")]
         public async Task<IActionResult> Find([FromRoute] PrimaryKey key)
         {
+            BeforeFindEntity();
             Log($"Fetching {GetEntityNameInSingularForLogging()} with key : {key}");
             var entity = await _repository.FindAsync(key);
             return Ok(entity);
@@ -32,6 +34,7 @@ namespace AutoCrud
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Entity entity)
         {
+            BeforeCreate();
             Log($"Creating new {GetEntityNameInSingularForLogging()}");
             var createdEntity = await _repository.CreateAsync(entity);
             await PostProcessCreate(entity);
@@ -41,6 +44,7 @@ namespace AutoCrud
         [HttpPut("{key}")]
         public async Task<IActionResult> Update([FromRoute] PrimaryKey key, [FromBody] Entity entity)
         {
+            BeforeUpdate();
             Log($"Updating {GetEntityNameInSingularForLogging()} with key : {key}");
             SetPrimaryKeyValueToEntity(entity, key);
             var editedEntity = await _repository.UpdateAsync(entity);
@@ -51,6 +55,7 @@ namespace AutoCrud
         [HttpDelete("{key}")]
         public async Task<IActionResult> Delete([FromRoute] PrimaryKey key)
         {
+            BeforeDelete();
             Log($"Deleting {GetEntityNameInSingularForLogging()} with key : {key}");
             var deletedEntity = await _repository.DeleteAsync(key);
             await PostProcessDelete(deletedEntity);
