@@ -106,7 +106,7 @@ namespace AutoCrud
 
         public List<Entity> GetPage(int page, int pageSize)
         {
-            var query = GetDbSet().Take(pageSize).Skip(page * pageSize);
+            var query = GetDbSet().Skip(page * pageSize).Take(pageSize);
             query = PreProcessPageQuery(query);
             return query.ToList();
         }
