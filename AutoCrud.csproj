@@ -8,7 +8,7 @@
         <GenerateProgramFile>false</GenerateProgramFile>
 
         <PackageId>AutoCrud</PackageId>
-        <Version>1.1.0</Version>
+        <Version>1.1.1</Version>
         <Authors>Ali Faris</Authors>
         <Company>Ali Faris</Company>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
