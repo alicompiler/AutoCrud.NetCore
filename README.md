@@ -83,7 +83,7 @@ for more details see
 #
 #### Checkout this video
 
-[![Video](http://i3.ytimg.com/vi/ssJGTQ1gyYo/hqdefault.jpg)](https://www.youtube.com/embed/ssJGTQ1gyYo)
+[![Video](http://i3.ytimg.com/vi/ssJGTQ1gyYo/hqdefault.jpg)](https://www.youtube.com/watch?v=ssJGTQ1gyYo)
 
 
 
